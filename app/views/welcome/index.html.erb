@@ -1,3 +1,9 @@
-<a href="#" class="button">Login</a>
-<a href="#" class="button">Sign Up</a>
-<a href="#" class="button">Play as Guest</a>
+<% if user_signed_in? %>
+	<p>Logged in as <strong><%= current_user.email %></strong>.</p>
+<% end %>
+
+<% if user_signed_in? %>
+	<div class="button">Ranked Game</div>
+<% else %>
+	<div class="button">Play as Guest</div>
+<% end %>

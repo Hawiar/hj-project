@@ -10,7 +10,7 @@
 	<nav class="top-bar" data-topbar role="navigation">
 	  <ul class="title-area">
 	    <li class="name">
-	      <a class="logo" href="#"><%= image_tag("logo") %></a>
+	      <a class="logo" href="/"><%= image_tag("logo") %></a>
 	    </li>
 	     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
 	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -19,20 +19,16 @@
 	  <section class="top-bar-section">
 	    <!-- Right Nav Section -->
 	    <ul class="right">
-	      <li class="active"><a href="#">Right Button Active</a></li>
+				<% if user_signed_in? %>
+				  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'%></li>
+				  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+				<% else %>
+				  <li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link' %></li> 
+				  <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li>
+				<% end %>
 	    </ul>
 	  </section>
 	</nav>
-
-	<p class="navbar-text pull-right">
-<% if user_signed_in? %>
-  Logged in as <strong><%= current_user.email %></strong>.
-  <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
-<% end %>
 
 	<!-- Stuff for devise -->
 	<% if notice %>
