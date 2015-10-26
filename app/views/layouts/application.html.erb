@@ -4,6 +4,7 @@
   <title>Sweeper</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= favicon_link_tag 'logo' %> 
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -13,7 +14,7 @@
 	      <a class="logo" href="/"><%= image_tag("logo") %></a>
 	    </li>
 	     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-	    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+	    <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
 	  </ul>
 
 	  <section class="top-bar-section">
@@ -30,7 +31,9 @@
 	  </section>
 	</nav>
 
+<<<<<<< HEAD
 	<!-- Stuff for devise -->
+
 	<% if notice %>
 	  <p class="alert alert-success"><%= notice %></p>
 	<% end %>
