@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'dashboard/leaderboard'
+
   devise_for :users
   resources :users
   devise_for :admin_users, ActiveAdmin::Devise.config
