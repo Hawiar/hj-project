@@ -6,8 +6,10 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'logo' %> 
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'game' %>
+  <%= javascript_include_tag 'game' %>
 </head>
-<body>
+<body onload="starting()">
 	<nav class="top-bar" data-topbar role="navigation">
 	  <ul class="title-area">
 	    <li class="name">

@@ -5,19 +5,25 @@ var rows; //horizontal
 var softCells; //cells that don't have a bomb
 
 function create(rows, columns, bombs) {
-this.rows = rows;
-this.columns = columns;
-this.bombs = bombs;
+	this.rows = rows;
+	this.columns = columns;
+	this.bombs = bombs;
 
-softCells = (rows*columns)-(bombs);
+	softCells = (rows*columns)-(bombs);
 
-for (var i = 0; i < rows; i++) {
-  //
-  for (var j = 0; j < columns; j++) {
-  }
-}}
+	board = "<table>";
+	for (var i = 0; i < rows; i++) {
+	  board += "<tr>";
+	  for (var j = 0; j < columns; j++) {
+	  	board += "<td><div class='spot' id='"+j+","+i+"'></div><\/td>";
+	  }
+	  board += "<\/tr>";
+	}
+	board += "<\/table>";
+	finder("board").innerHTML = board;
+}
 
-function default() { //Default board layout
+function starting() { //Default board layout
   create(10, 10, 10);
 }
 
@@ -25,4 +31,8 @@ function clear() { //clears the board
 }
 
 function populate() { //setup bombs across the board
+}
+
+function finder(string) {
+ return document.getElementById(string);
 }
