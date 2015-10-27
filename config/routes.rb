@@ -1,17 +1,30 @@
 Rails.application.routes.draw do
-  get 'dashboard/leaderboard'
 
   devise_for :users
-  resources :users
+  devise_scope :user do
+    authenticated :user do
+      root 'dashboard#index', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'welcome#index', as: :unauthenticated_root
+    end
+  end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
+
+  resources :users
+
   ActiveAdmin.routes(self)
+
   get 'welcome/index'
+  get 'dashboard/leaderboard'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # You can have the root of your site routed with "root"
-  root 'welcome#index'
+  # You can have the root of your site routed with "root
+  root :to => 'welcome#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

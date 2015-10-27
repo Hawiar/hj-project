@@ -1,1 +1,4 @@
-<%= render partial: "dashboard/leaderboard" %>
+.row
+  .col-sm-4
+    = render partial:  "dashboard/leaderboard", locals: {users: @users}
+

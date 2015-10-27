@@ -1,0 +1,8 @@
+%table{:border => "1"}
+  %tr
+    %th User
+    %th High Score
+  -users.each do |user|
+    %tr
+      %td= user.username
+      %td= user.high_score

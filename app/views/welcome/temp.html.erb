@@ -1,0 +1,13 @@
+<% if user_signed_in? %>
+	<p>Logged in as <strong><%= current_user.email %></strong>.</p>
+<% end %>
+
+<% if user_signed_in? %>
+	<div class="button">Ranked Game</div>
+<% else %>
+	<div class="button">Play as Guest</div>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-4"></div>
+    <%= render partial: "dashboard/leaderboard"%>
