@@ -24,7 +24,7 @@ function create(rows, columns, bombs) {
 }
 
 function starting() { //Default board layout
-  create(70, 50, 50);
+  create(16, 16, 40);
 }
 
 function clear() { //clears the board
