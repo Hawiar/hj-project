@@ -10,6 +10,7 @@ function create(rows, columns, bombs) {
 	this.rows = rows;
 	this.columns = columns;
 	this.bombs = bombs;
+	numOfClicks = 0;
 
 	softCells = (rows*columns)-(bombs);
 
@@ -80,13 +81,12 @@ function clear() { //clears the board
 function populate(bombs) { //setup bombs across the board
 	left = bombs;
 	$(".closed").each(function() {
-		position = $(this).attr('id')
+		position = $(this).attr('id');
 		pos = position.split(",");
 		pos[0] = Math.floor(pos[0]);
 		pos[1] = Math.floor(pos[1]);
 
 		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
-			console.log(left + " left to place. Placing at " + pos)
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			$(this).addClass("mine");
@@ -96,6 +96,10 @@ function populate(bombs) { //setup bombs across the board
 	if(left > 0) {
 		populate(left);
 	}
+}
+
+function debug(bug) {
+	console.log(bug);
 }
 
 function finder(string) {
