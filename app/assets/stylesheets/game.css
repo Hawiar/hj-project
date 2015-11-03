@@ -1,0 +1,25 @@
+.closed {
+  background-color: black;
+  width: 20px;
+  height: 20px;
+  margin: 0.5px; }
+
+.open {
+  background-color: #061994;
+  width: 20px;
+  height: 20px;
+  margin: 0.5px; }
+
+.mine {
+  background-color: red;
+  width: 20px;
+  height: 20px;
+  margin: 0.5px; }
+
+td {
+  padding: 0 !important; }
+
+table {
+  width: initial; }
+
+/*# sourceMappingURL=game.css.map */
