@@ -85,7 +85,8 @@ function populate(bombs) { //setup bombs across the board
 		pos[0] = Math.floor(pos[0]);
 		pos[1] = Math.floor(pos[1]);
 
-		if(Math.random() < 0.01 && left > 0) {
+		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
+			console.log(left + " left to place. Placing at " + pos)
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			$(this).addClass("mine");
