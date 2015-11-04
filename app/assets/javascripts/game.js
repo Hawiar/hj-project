@@ -34,7 +34,7 @@ function made(position) {
 	//stores the position of the clicked spot in a array list [x,y].
 	p = position;
 	pos = p.split(",");
-	debug(pos);
+
 	if (numOfClicks == 1) {
 		aroundTown(pos);
 	}
@@ -45,6 +45,11 @@ function made(position) {
 	document.getElementById(pos).className = "open";
 	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
 	}
+
+	// if (checkMines(pos[0],pos[1]) == "") {
+	// 	debug("hey " + position + " was blank.");
+	// 	blankOpen(position);
+	// }
 }
 
 function aroundTown(position) {
@@ -87,6 +92,35 @@ function aroundTown(position) {
 	}
 }
 
+// function blankOpen(position) {
+// 	pos = position;
+// 	pos[0] = Math.floor(pos[0]);
+// 	pos[1] = Math.floor(pos[1]);
+// 	posit = pos;
+
+// 	// opens up the square clicked and the 8 squares surrounding it.
+// 	for (var i = -1; i < 2; i++) {
+// 		posit[0] = posit[0] + i;
+
+// 		for (var j = -1; j < 2; j++) {
+// 			posit[1] = posit[1] + j;
+
+// 			if(document.getElementById(posit)) {
+// 				document.getElementById(posit).className = "open";
+// 				document.getElementById(posit).innerHTML = checkMines(posit[0],posit[1]);
+
+// 				if(checkMines(posit[0],posit[1]) == "") {
+// 					blankOpen([posit[0], posit[1]]);
+// 				}
+// 			}
+
+// 			posit[1] = posit[1] - j;
+// 		}
+
+// 		posit[0] = posit[0] - i;
+// 	}
+// }
+
 function starting() { //Default board layout
   create(16, 16, 40);
 }
@@ -99,7 +133,6 @@ function checkMines(x,y) {
 	numMines = 0;
 	allPos2 = [];
 	pos2 = [x,y];
-	debug("pos2: " + pos2);
 	pos2[0] = Math.floor(pos2[0]);
 	pos2[1] = Math.floor(pos2[1]);
 	posit2 = pos2;
