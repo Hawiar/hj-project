@@ -82,9 +82,11 @@ function aroundTown(position) {
 			posit[1] = posit[1] + jAT;
 
 			if(document.getElementById(posit)) {
+
 				document.getElementById(posit).className = "open";
 				allPos += posit;
-				allPos += ",";
+
+                  allPos += ",";
 			}
 
 			posit[1] = posit[1] - jAT;
@@ -97,13 +99,16 @@ function aroundTown(position) {
 	populate(bombs);
 
 	// put number in each square saying how many mines it's touching.
-	for (iP = 0; iP <= 36;) {
+	allPos = allPos.split(",");
+	debug(allPos);
+
+	for (iP = 0; iP < 18;) {
 		x = allPos[iP];
-		y = allPos[iP + 2];
+		y = allPos[iP + 1];
 		if(document.getElementById(x + "," + y)) {
 			document.getElementById(x + "," + y).innerHTML = checkMines(x,y);
 		}
-		iP = iP + 4;
+		iP = iP + 2;
 	}
 }
 
