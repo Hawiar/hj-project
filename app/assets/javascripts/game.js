@@ -34,12 +34,16 @@ function made(position) {
 	//stores the position of the clicked spot in a array list [x,y].
 	p = position;
 	pos = p.split(",");
-	
+	debug(pos);
 	if (numOfClicks == 1) {
 		aroundTown(pos);
 	}
+	else if (allSpaces[pos[0]][pos[1]]) {
+		window.alert("you lose!!!");
+	}
 	else {
 	document.getElementById(pos).className = "open";
+	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
 	}
 }
 
@@ -95,11 +99,12 @@ function checkMines(x,y) {
 	numMines = 0;
 	allPos2 = [];
 	pos2 = [x,y];
+	debug("pos2: " + pos2);
 	pos2[0] = Math.floor(pos2[0]);
 	pos2[1] = Math.floor(pos2[1]);
 	posit2 = pos2;
 
-	// opens up the square clicked and the 8 squares surrounding it.
+	// checks the square clicked and 8 surround squares for mines.
 	for (var i = -1; i < 2; i++) {
 		posit2[0] = posit2[0] + i;
 
