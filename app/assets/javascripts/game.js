@@ -1,32 +1,47 @@
 var bombs;
 var bombTotal; //Number of bombs on the board
 var columns; //vertical
-var rows; //horizontal
+var row; //horizontal
 var numOfClicks = 0; //number of clicks
 var softCells; //cells that don't have a bomb
 var allSpaces = []; //full game board
 
 function create(rows, columns, bombs) {
-	this.rows = rows;
+	clears();
+	this.row = rows;
 	this.columns = columns;
 	this.bombs = bombs;
 	numOfClicks = 0;
 
-	softCells = (rows*columns)-(bombs);
+	softCells = (row*columns)-(bombs);
+
+	for (var ii = 0; ii < columns; ii++) {
+		allSpaces[ii] = [];
+	}
 
 	board = "<table>";
-	for (var i = 0; i < rows; i++) {
+	for (var i = 0; i < row; i++) {
 	  board += "<tr>";
-	  allSpaces[i] = [];
 	  for (var j = 0; j < columns; j++) {
 	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='made(this.id)'></div><\/td>";
-	  	allSpaces[i][j] = false;
+	  	allSpaces[j][i] = false;
 	  }
 	  board += "<\/tr>";
 	}
 	board += "<\/table>";
 	finder("board").innerHTML = board;
 }
+
+function clears() { //clears the board
+	bombs = 0;
+	columns = 0;
+	row = 0;
+	numOfClicks = 0;
+	softCells = 0;
+	allSpaces = [];
+	bombsTotal = 0;
+}
+
 
 //Whenever a spot is clicked call this function.
 function made(position) {
@@ -60,11 +75,11 @@ function aroundTown(position) {
 	posit = pos;
 
 	// opens up the square clicked and the 8 squares surrounding it.
-	for (var i = -1; i < 2; i++) {
-		posit[0] = posit[0] + i;
+	for (var iAT = -1; iAT < 2; iAT++) {
+		posit[0] = posit[0] + iAT;
 
-		for (var j = -1; j < 2; j++) {
-			posit[1] = posit[1] + j;
+		for (var jAT = -1; jAT< 2; jAT++) {
+			posit[1] = posit[1] + jAT;
 
 			if(document.getElementById(posit)) {
 				document.getElementById(posit).className = "open";
@@ -72,23 +87,23 @@ function aroundTown(position) {
 				allPos += ",";
 			}
 
-			posit[1] = posit[1] - j;
+			posit[1] = posit[1] - jAT;
 		}
 
-		posit[0] = posit[0] - i;
+		posit[0] = posit[0] - iAT;
 	}
 
 	// randomly places bombs in the remaining closed squares.
 	populate(bombs);
 
 	// put number in each square saying how many mines it's touching.
-	for (i = 0; i < 36;) {
-		x = allPos[i];
-		y = allPos[i + 2];
+	for (iP = 0; iP <= 36;) {
+		x = allPos[iP];
+		y = allPos[iP + 2];
 		if(document.getElementById(x + "," + y)) {
 			document.getElementById(x + "," + y).innerHTML = checkMines(x,y);
 		}
-		i = i + 4;
+		iP = iP + 4;
 	}
 }
 
@@ -122,10 +137,7 @@ function aroundTown(position) {
 // }
 
 function starting() { //Default board layout
-  create(16, 16, 40);
-}
-
-function clear() { //clears the board
+  create(10, 16, 40);
 }
 
 // check around position for mines
@@ -138,20 +150,20 @@ function checkMines(x,y) {
 	posit2 = pos2;
 
 	// checks the square clicked and 8 surround squares for mines.
-	for (var i = -1; i < 2; i++) {
-		posit2[0] = posit2[0] + i;
+	for (var iCM = -1; iCM < 2; iCM++) {
+		posit2[0] = posit2[0] + iCM;
 
-		for (var j = -1; j < 2; j++) {
-			posit2[1] = posit2[1] + j;
+		for (var jCM = -1; jCM < 2; jCM++) {
+			posit2[1] = posit2[1] + jCM;
 
 			if(document.getElementById(posit2) && allSpaces[pos2[0]][pos2[1]])  {
 				numMines++;
 			}
 
-			posit2[1] = posit2[1] - j;
+			posit2[1] = posit2[1] - jCM;
 		}
 
-		posit2[0] = posit2[0] - i;
+		posit2[0] = posit2[0] - iCM;
 	}
 
 	if(numMines == 0) {
