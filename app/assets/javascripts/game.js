@@ -44,31 +44,43 @@ function made(position) {
 }
 
 function aroundTown(position) {
+	allPos = [];
 	pos = position;
-	pos[0] = Math.floor(pos[0]) - 1;
-	pos[1] = Math.floor(pos[1]) ;
+	pos[0] = Math.floor(pos[0]);
+	pos[1] = Math.floor(pos[1]);
 	posit = pos;
 
-	for (var i = 0; i <= 2; i++) {
+	// opens up the square clicked and the 8 squares surrounding it.
+	for (var i = -1; i < 2; i++) {
 		posit[0] = posit[0] + i;
-		if (i == 2) {
-			posit[0] = posit[0] - 1;
+
+		for (var j = -1; j < 2; j++) {
+			posit[1] = posit[1] + j;
+
+			if(document.getElementById(posit)) {
+				document.getElementById(posit).className = "open";
+				allPos += posit;
+				allPos += ",";
+			}
+
+			posit[1] = posit[1] - j;
 		}
 
-	  for (var j = 0; j <= 2; j++) {
-	  	posit[1] = posit[1] + 1;
-	    if (j==1) {
-	  		posit[1] = posit[1] -3;
-	  	}
-
-	  	if(document.getElementById(posit)) {
-	 			document.getElementById(posit).className = "open";
-	 		}
-	  }
-
+		posit[0] = posit[0] - i;
 	}
 
+	// randomly places bombs in the remaining closed squares.
 	populate(bombs);
+
+	// put number in each square saying how many mines it's touching.
+	for (i = 0; i < 36;) {
+		x = allPos[i];
+		y = allPos[i + 2];
+		if(document.getElementById(x + "," + y)) {
+			document.getElementById(x + "," + y).innerHTML = checkMines(x,y);
+		}
+		i = i + 4;
+	}
 }
 
 function starting() { //Default board layout
@@ -78,15 +90,45 @@ function starting() { //Default board layout
 function clear() { //clears the board
 }
 
+// check around position for mines
+function checkMines(x,y) {
+	numMines = 0;
+	allPos2 = [];
+	pos2 = [x,y];
+	pos2[0] = Math.floor(pos2[0]);
+	pos2[1] = Math.floor(pos2[1]);
+	posit2 = pos2;
+
+	// opens up the square clicked and the 8 squares surrounding it.
+	for (var i = -1; i < 2; i++) {
+		posit2[0] = posit2[0] + i;
+
+		for (var j = -1; j < 2; j++) {
+			posit2[1] = posit2[1] + j;
+
+			if(document.getElementById(posit2) && allSpaces[pos2[0]][pos2[1]])  {
+				numMines++;
+			}
+
+			posit2[1] = posit2[1] - j;
+		}
+
+		posit2[0] = posit2[0] - i;
+	}
+
+	return numMines;
+}
+
 function populate(bombs) { //setup bombs across the board
 	left = bombs;
+
 	$(".closed").each(function() {
 		position = $(this).attr('id');
 		pos = position.split(",");
 		pos[0] = Math.floor(pos[0]);
 		pos[1] = Math.floor(pos[1]);
 
-		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
+		if(Math.random() < 0.02 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			$(this).addClass("mine");
