@@ -121,7 +121,12 @@ function checkMines(x,y) {
 		posit2[0] = posit2[0] - i;
 	}
 
-	return numMines;
+	if(numMines == 0) {
+		return "";	
+	}
+	else {
+		return numMines;
+	}
 }
 
 function populate(bombs) { //setup bombs across the board
@@ -133,7 +138,7 @@ function populate(bombs) { //setup bombs across the board
 		pos[0] = Math.floor(pos[0]);
 		pos[1] = Math.floor(pos[1]);
 
-		if(Math.random() < 0.02 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
+		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			$(this).addClass("mine");
