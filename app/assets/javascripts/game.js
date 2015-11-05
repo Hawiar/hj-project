@@ -97,8 +97,14 @@ function clickedOn(position) {
 
 	//if it's not a mine or the first click, open the square
 	else {
-	document.getElementById(pos).className = "open";
-	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
+		clickedSquare = document.getElementById(pos);
+
+		if(clickedSquare.className == "closed flag") {
+			return;
+		}
+
+		clickedSquare.className = "open"
+		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
   softCells--;
   if (softCells == 0) {
     win();
@@ -108,6 +114,7 @@ function clickedOn(position) {
 
 function aroundTown(position) {
 	allPos = [];
+	debug(position);
 	pos = position;
 	pos[0] = Math.floor(pos[0]);
 	pos[1] = Math.floor(pos[1]);
@@ -138,44 +145,33 @@ function aroundTown(position) {
 
 	// put number in each square saying how many mines it's touching.
 	allPos = allPos.split(",");
-	debug(allPos);
 
 	for (iP = 0; iP < 18;) {
 		x = allPos[iP];
 		y = allPos[iP + 1];
 		if(document.getElementById(x + "," + y)) {
 			document.getElementById(x + "," + y).innerHTML = checkMines(x,y);
+
+			if(checkMines(x,y) == "") {
+				document.getElementById(x + "," + y).classList.add("blank");
+			}
 		}
 		iP = iP + 2;
 	}
 }
 
-// function blankOpen(position) {
-// 	pos = position;
-// 	pos[0] = Math.floor(pos[0]);
-// 	pos[1] = Math.floor(pos[1]);
-// 	posit = pos;
+// function blankOpen(x,y) {
+// 	debug("Blank space at: " + x + "," + y);
 
-// 	// opens up the square clicked and the 8 squares surrounding it.
-// 	for (var i = -1; i < 2; i++) {
-// 		posit[0] = posit[0] + i;
+// 	pos = [x,y];
 
-// 		for (var j = -1; j < 2; j++) {
-// 			posit[1] = posit[1] + j;
-
-// 			if(document.getElementById(posit)) {
-// 				document.getElementById(posit).className = "open";
-// 				document.getElementById(posit).innerHTML = checkMines(posit[0],posit[1]);
-
-// 				if(checkMines(posit[0],posit[1]) == "") {
-// 					blankOpen([posit[0], posit[1]]);
-// 				}
-// 			}
-
-// 			posit[1] = posit[1] - j;
-// 		}
-
-// 		posit[0] = posit[0] - i;
+// 	clickedSquare = document.getElementById(pos);
+// 	clickedSquare.className = "open"
+// 	clickedSquare.innerHTML = checkMines(x,y);
+//   softCells--;
+//   if (softCells == 0) {
+//     win();
+//   }
 // 	}
 // }
 
@@ -235,6 +231,7 @@ function populate(bombs) { //setup bombs across the board
 		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
+			// shows all mines, useful for debugging.
 			$(this).addClass("mine");
 		}
 	});
