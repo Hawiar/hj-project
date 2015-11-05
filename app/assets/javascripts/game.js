@@ -2,15 +2,20 @@ var bombs;
 var bombTotal; //Number of bombs on the board
 var columns; //vertical
 var row; //horizontal
+var difficulty;
 var numOfClicks = 0; //number of clicks
 var softCells; //cells that don't have a bomb
 var allSpaces = []; //full game board
+var score = 0;
+var hintsUsed = 0;
 
-function create(rows, columns, bombs) {
+//Creates the initial board
+function create(rows, columns, bombs, difficulty) {
 	clears();
 	this.row = rows;
 	this.columns = columns;
 	this.bombs = bombs;
+  this.difficulty = difficulty;
 	numOfClicks = 0;
 
 	softCells = (row*columns)-(bombs);
@@ -32,7 +37,8 @@ function create(rows, columns, bombs) {
 	finder("board").innerHTML = board;
 }
 
-function clears() { //clears the board
+//Clears the board
+function clears() {
 	bombs = 0;
 	columns = 0;
 	row = 0;
@@ -40,6 +46,8 @@ function clears() { //clears the board
 	softCells = 0;
 	allSpaces = [];
 	bombsTotal = 0;
+  score = 0;
+  hintsUsed = 0;
 }
 
 
@@ -54,11 +62,16 @@ function made(position) {
 		aroundTown(pos);
 	}
 	else if (allSpaces[pos[0]][pos[1]]) {
-		window.alert("you lose!!!");
+		//window.alert("you lose!!!");
+    lose();
 	}
 	else {
 	document.getElementById(pos).className = "open";
 	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
+  softCells--;
+  if (softCells == 0) {
+    win()
+  }
 	}
 
 	// if (checkMines(pos[0],pos[1]) == "") {
@@ -85,8 +98,8 @@ function aroundTown(position) {
 
 				document.getElementById(posit).className = "open";
 				allPos += posit;
-
-                  allPos += ",";
+        allPos += ",";
+        softCells--;
 			}
 
 			posit[1] = posit[1] - jAT;
@@ -95,7 +108,6 @@ function aroundTown(position) {
 		posit[0] = posit[0] - iAT;
 	}
 
-	// randomly places bombs in the remaining closed squares.
 	populate(bombs);
 
 	// put number in each square saying how many mines it's touching.
@@ -142,7 +154,7 @@ function aroundTown(position) {
 // }
 
 function starting() { //Default board layout
-  create(10, 16, 40);
+  create(9, 9, 10, 'easy');
 }
 
 // check around position for mines
@@ -179,6 +191,12 @@ function checkMines(x,y) {
 	}
 }
 
+function hint() {
+  hintsUsed++;
+  //count the number of open spaces
+  //randomly select one to highlight
+}
+
 function populate(bombs) { //setup bombs across the board
 	left = bombs;
 
@@ -200,6 +218,55 @@ function populate(bombs) { //setup bombs across the board
 	}
 }
 
+function scorify() {
+  if (difficulty != "custom") {
+    switch(difficulty) {
+      case 'easy':
+        score += 500;
+        break;
+      case 'medium':
+        score += 1000;
+        break;
+      case 'hard':
+        score += 2000;
+        break;
+    }
+    var penalty = (hintsused*100);
+    score = score - penalty;
+    //add timer to score
+  }
+}
+
+function lose() {
+  //uncover all the mines
+  //stop the timer
+  //play bomb sound
+}
+
+function win() {
+  //stop the timer
+  //play win sound
+  scorify();
+}
+
+
+function custom() {
+  row = parseInt(prompt("Rows:", "Minimum of 5"));
+  columns = parseInt(prompt("Columns:", "Minimum of 5"));
+  bombs = (row*columns)/5;
+  difficulty = "custom"
+  create(row, columns, bombs, difficulty);
+}
+
+function bombSound() { //html5 audio element
+  var audio = document.getElementById('bomb');
+  audio.play();
+}
+
+function winSound() { //html5 audio element
+  var audio = document.getElementById('bomb');
+  audio.play();
+}
 function debug(bug) {
 	console.log(bug);
 }
