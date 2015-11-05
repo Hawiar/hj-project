@@ -9,6 +9,16 @@ var allSpaces = []; //full game board
 var score = 0;
 var hintsUsed = 0;
 
+// detects when mouse is right-clicked
+function mouseDown(e, id) {
+  debug(id);
+  e = e || window.event;
+
+  if (e.which == 3) {
+  	document.getElementById(id).className = "flag";
+  }
+}
+
 document.oncontextmenu = function() {
     return false;
 }
@@ -32,7 +42,7 @@ function create(rows, columns, bombs, difficulty) {
 	for (var i = 0; i < row; i++) {
 	  board += "<tr>";
 	  for (var j = 0; j < columns; j++) {
-	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='made(this.id)'></div><\/td>";
+	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='made(this.id)' onmousedown='mouseDown(event, this.id);'></div><\/td>";
 	  	allSpaces[j][i] = false;
 	  }
 	  board += "<\/tr>";
