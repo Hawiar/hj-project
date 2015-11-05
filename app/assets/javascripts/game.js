@@ -19,7 +19,7 @@ function create(rows, columns, bombs, difficulty) {
 	this.row = rows;
 	this.columns = columns;
 	this.bombs = bombs;
-  this.difficulty = difficulty;
+	this.difficulty = difficulty;
 	numOfClicks = 0;
 
 	softCells = (row*columns)-(bombs);
@@ -74,7 +74,7 @@ function made(position) {
 	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
   softCells--;
   if (softCells == 0) {
-    win()
+    win();
   }
 	}
 
