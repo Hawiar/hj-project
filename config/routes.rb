@@ -17,9 +17,10 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
-  get 'welcome/index'
+  get 'welcome/index' => 'welcome#index', as: "registration"
   get 'dashboard/leaderboard'
   get 'game/index' => 'game#index', as: "game"
+  get 'game/guest_game' => 'game#guest_game', as: "guest_game"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<audio id="bomb">
+  <source src="bomb.wav" type="audio/wav">
+</audio>
+
+<table><tr>
+ <span class="button" onclick="create(9,9,10, 'easy')"> Easy</span>
+ <span class="button" onclick="create(10,16,40, 'medium')"> Medium</span>
+ <span class="button" onclick="create(30,30,99, 'hard')"> Hard</span>
+ <span class="button" onclick="custom()"> Custom</span>
+ <span class="button" onclick="hint()"> Hint</span>
+ <span class="button" onclick="bombSound()"> Sound </span>
+ <td id="bigtable"><span id="board">&nbsp;</span></td>
+ </tr></table>
+ </body>
+ </html>
