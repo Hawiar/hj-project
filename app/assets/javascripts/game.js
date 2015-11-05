@@ -11,11 +11,24 @@ var hintsUsed = 0;
 
 // detects when mouse is right-clicked
 function mouseDown(e, id) {
-  debug(id);
+  flagged = document.getElementById(id);
+
   e = e || window.event;
 
   if (e.which == 3) {
-  	document.getElementById(id).className = "flag";
+  	if(flagged.className == "closed flag") {
+  		flagged.classList.remove("flag");
+  		flagged.classList.add("question");
+  		flagged.innerHTML = "?";
+  	}
+  	else if(flagged.className == "closed question") {
+  		flagged.classList.remove("question");
+  		flagged.innerHTML = "";
+  	}
+  	else {
+	  	flagged.classList.add("flag");
+	  	flagged.innerHTML = "F";
+	  }
   }
 }
 
@@ -42,7 +55,7 @@ function create(rows, columns, bombs, difficulty) {
 	for (var i = 0; i < row; i++) {
 	  board += "<tr>";
 	  for (var j = 0; j < columns; j++) {
-	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='made(this.id)' onmousedown='mouseDown(event, this.id);'></div><\/td>";
+	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='clickedOn(this.id)' onmousedown='mouseDown(event, this.id);'></div><\/td>";
 	  	allSpaces[j][i] = false;
 	  }
 	  board += "<\/tr>";
@@ -66,7 +79,7 @@ function clears() {
 
 
 //Whenever a spot is clicked call this function.
-function made(position) {
+function clickedOn(position) {
 	numOfClicks++;
 	//stores the position of the clicked spot in a array list [x,y].
 	p = position;
@@ -75,10 +88,14 @@ function made(position) {
 	if (numOfClicks == 1) {
 		aroundTown(pos);
 	}
+
+	//if the spot is a mine you lose.
 	else if (allSpaces[pos[0]][pos[1]]) {
 		//window.alert("you lose!!!");
     lose();
 	}
+
+	//if it's not a mine or the first click, open the square
 	else {
 	document.getElementById(pos).className = "open";
 	document.getElementById(pos).innerHTML = checkMines(pos[0],pos[1]);
@@ -87,11 +104,6 @@ function made(position) {
     win();
   }
 	}
-
-	// if (checkMines(pos[0],pos[1]) == "") {
-	// 	debug("hey " + position + " was blank.");
-	// 	blankOpen(position);
-	// }
 }
 
 function aroundTown(position) {
