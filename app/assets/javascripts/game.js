@@ -9,6 +9,10 @@ var allSpaces = []; //full game board
 var score = 0;
 var hintsUsed = 0;
 
+document.oncontextmenu = function() {
+    return false;
+}
+
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
 	clears();
