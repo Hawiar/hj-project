@@ -4,4 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   
+  def win_perc
+    if wins && losses
+      (self.wins/self.losses)*100
+    end
+  end
 end

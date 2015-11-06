@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :users, controllers: {registrations: "devise/registrations" }
 
   devise_scope :user do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
   get 'dashboard/leaderboard'
   get 'game/index' => 'game#index', as: "game"
   get 'game/guest_game' => 'game#guest_game', as: "guest_game"
+  get 'players/show/:id' => 'players#show', as: "player"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

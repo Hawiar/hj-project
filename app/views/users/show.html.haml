@@ -1,0 +1,31 @@
+%h1 Player Stats
+.row
+  .col-sm-6
+    %table.table
+      %tr
+        %th Username
+        %td= @user.username
+      %tr
+        %th All Time High Score
+        %td= @user.high_score
+      %tr
+        %th Total Points
+        %td= @user.points
+      %tr
+        %th
+        %td
+.row
+  .col-sm-6
+    %table.table
+      %tr
+        %th Win Percentage
+        %td= @user.win_perc
+      %tr
+        %th Wins
+        %td= @user.wins
+      %tr
+        %th Losses
+        %td= @user.losses
+      %tr
+        %th
+        %td
