@@ -8,6 +8,6 @@ class GameController < ApplicationController
   end
 
   def authenticate
-    redirect_to registration_path unless current_user
+    redirect_to unauth_path unless current_user
   end
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: "devise/registrations" }
+
   devise_scope :user do
     authenticated :user do
       root 'dashboard#index', as: :authenticated_root
@@ -13,11 +14,11 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
-  resources :users
+  #resources :users
 
   ActiveAdmin.routes(self)
 
-  get 'welcome/index' => 'welcome#index', as: "registration"
+  get 'welcome/index' => 'welcome#index', as: "unauth"
   get 'dashboard/leaderboard'
   get 'game/index' => 'game#index', as: "game"
   get 'game/guest_game' => 'game#guest_game', as: "guest_game"
