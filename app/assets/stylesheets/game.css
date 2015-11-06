@@ -3,6 +3,8 @@
   width: 20px;
   height: 20px;
   margin: 0.5px; }
+  .closed.hint {
+    background-color: yellow; }
 
 .open {
   background-color: #061994;

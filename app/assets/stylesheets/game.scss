@@ -3,6 +3,10 @@
  	width: 20px;
  	height: 20px;
  	margin: 0.5px;
+
+ 	&.hint {
+ 		background-color: yellow;
+ 	}
  }
 
 .open {

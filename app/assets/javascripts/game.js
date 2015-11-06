@@ -8,6 +8,7 @@ var softCells; //cells that don't have a bomb
 var allSpaces = []; //full game board
 var score = 0;
 var hintsUsed = 0;
+var tSwift = [];
 
 // detects when mouse is right-clicked
 function mouseDown(e, id) {
@@ -105,16 +106,21 @@ function clickedOn(position) {
 
 		clickedSquare.className = "open"
 		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
-  softCells--;
-  if (softCells == 0) {
-    win();
-  }
+	  softCells--;
+
+	  if (softCells == 0) {
+	    win();
+	  }
+
+	  if (checkMines(pos[0],pos[1]) == "") {
+	  	tSwift.push([pos[0],pos[1]]);
+	  	blankOpen();
+	  }
 	}
 }
 
 function aroundTown(position) {
 	allPos = [];
-	debug(position);
 	pos = position;
 	pos[0] = Math.floor(pos[0]);
 	pos[1] = Math.floor(pos[1]);
@@ -153,27 +159,50 @@ function aroundTown(position) {
 			document.getElementById(x + "," + y).innerHTML = checkMines(x,y);
 
 			if(checkMines(x,y) == "") {
-				document.getElementById(x + "," + y).classList.add("blank");
+				tSwift.push([x,y]);
 			}
 		}
 		iP = iP + 2;
 	}
+
+	blankOpen();
 }
 
-// function blankOpen(x,y) {
-// 	debug("Blank space at: " + x + "," + y);
+function blankOpen() {
+	while (tSwift.length > 0) {
+		position = tSwift[0];
+		position[0] = Math.floor(position[0]);
+		position[1] = Math.floor(position[1]);
 
-// 	pos = [x,y];
 
-// 	clickedSquare = document.getElementById(pos);
-// 	clickedSquare.className = "open"
-// 	clickedSquare.innerHTML = checkMines(x,y);
-//   softCells--;
-//   if (softCells == 0) {
-//     win();
-//   }
-// 	}
-// }
+		for (var i = -1; i < 2; i++) {
+			position[0] = position[0] + i;
+
+			for (var j = -1; j < 2; j++) {
+				position[1] = position[1] + j;
+
+				if (document.getElementById(position)) {
+					square = document.getElementById(position);
+
+					if (square.classList.contains("closed") && allSpaces[position[0]][position[1]] == false) {
+						square.className = "open";
+						square.innerHTML = checkMines(position[0],position[1]);
+						softCells--;
+
+						if (checkMines(position[0],position[1]) == "") {
+							tSwift.push([position[0],position[1]]);
+						}
+					}
+				}
+
+				position[1] = position[1] - j;
+			}
+
+			position[0] = position[0] - i;
+		}	
+			tSwift.splice(0,1);
+	}
+}
 
 function starting() { //Default board layout
   create(9, 9, 10, 'easy');
@@ -215,8 +244,30 @@ function checkMines(x,y) {
 
 function hint() {
   hintsUsed++;
-  //count the number of open spaces
-  //randomly select one to highlight
+  
+  allPossible = [];
+
+  $(".closed").each(function() {
+  	position = $(this).attr('id');
+  	pos = position.split(",");
+		pos[0] = Math.floor(pos[0]);
+		pos[1] = Math.floor(pos[1]);
+
+		if (allSpaces[pos[0]][pos[1]] == false) {
+			allPossible.push(pos);
+		}
+
+  });
+
+  rando = allPossible.length;
+  rando = Math.floor((Math.random() * rando));
+
+  highlight = allPossible[rando];
+
+  document.getElementById(highlight).className = "hint closed";
+  debug(highlight);
+
+
 }
 
 function populate(bombs) { //setup bombs across the board
@@ -254,7 +305,7 @@ function scorify() {
         score += 2000;
         break;
     }
-    var penalty = (hintsused*100);
+    var penalty = (hintsUsed*100);
     score = score - penalty;
     //add timer to score
   }
