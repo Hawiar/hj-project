@@ -283,7 +283,7 @@ function populate(bombs) { //setup bombs across the board
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			// shows all mines, useful for debugging.
-			$(this).addClass("mine");
+			// $(this).addClass("mine");
 		}
 	});
 
