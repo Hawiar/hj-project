@@ -25,17 +25,17 @@
 	    <ul class="right">
 		    <li class="has-dropdown">
 	        <a href="#">Hi, <%= current_user.username %></a>
-	        <ul class="dropdown">
-	          
-	          <li><%= link_to 'Stats', edit_user_registration_path, :class => 'navbar-link'%></li>
+	          <ul class="dropdown">
+	            <li><%= link_to 'Stats', edit_user_registration_path, :class => 'navbar-link'%></li>
 						  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'%></li>
 						  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
-						  <% end %>
-	        </ul>
+	          </ul>
 	      </li>
 	    </ul>
+			<% end %>
 
 
+				  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
 
 	    <!-- <ul class="right">
 				<% if user_signed_in? %>
