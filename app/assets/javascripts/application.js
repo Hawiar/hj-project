@@ -13,7 +13,5 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require_tree .
-//= require game
 //= require turbolinks
 //= require foundation.min

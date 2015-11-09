@@ -9,6 +9,10 @@ var allSpaces = []; //full game board
 var score = 0;
 var hintsUsed = 0;
 var tSwift = [];
+var startTime;
+var curTime;
+var timerID;
+var time; 
 
 // detects when mouse is right-clicked
 function mouseDown(e, id) {
@@ -166,6 +170,7 @@ function aroundTown(position) {
 	}
 
 	blankOpen();
+	startTimer();
 }
 
 function blankOpen() {
@@ -335,6 +340,7 @@ function lose() {
 function win() {
 	//uncover all the mines and add dark overlay
 	finder("overlay").style.display = "block";
+	finder("lose").style.display = "block";
 
   $(".closed").each(function() {
 		position = $(this).attr('id');
@@ -376,3 +382,31 @@ function debug(bug) {
 function finder(string) {
  return document.getElementById(string);
 }
+
+function startTimer() {
+ startTime = new Date();
+ timerID = setInterval(updateTimer, 10);
+}
+
+function updateTimer() {
+ curTime = new Date();
+ time = curTime.getTime() - startTime.getTime();
+ var time2 = Math.round(time / 10);
+ $('time').innerHTML = trim(2, (time2 / 100));
+}
+
+function stopTimer() {
+ clearInterval(timerID);
+ updateTimer();
+}
+
+function trim(nDigits, number) {
+ var power = Math.pow(10, nDigits);
+ var trimmed = "" + Math.round(number * power);
+ while (trimmed.length < nDigits + 1) {
+  trimmed = "0" + trimmed;
+ }
+ var len = trimmed.length;
+ return trimmed.substr(0,len - nDigits) + "." + trimmed.substr(len - nDigits, nDigits);
+}
+
