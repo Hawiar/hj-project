@@ -30,4 +30,19 @@ table {
   -webkit-user-select: none;
   user-select: none; }
 
+.overlay {
+  display: none;
+  background-color: rgba(1, 1, 1, 0.5);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0; }
+
+.panel {
+  display: none;
+  width: 50%;
+  height: 50%;
+  margin: 20% auto; }
+
 /*# sourceMappingURL=game.css.map */

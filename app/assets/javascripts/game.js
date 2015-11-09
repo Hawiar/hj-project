@@ -104,7 +104,7 @@ function clickedOn(position) {
 			return;
 		}
 
-		clickedSquare.className = "open"
+		clickedSquare.className = "open";
 		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
 	  softCells--;
 
@@ -312,17 +312,45 @@ function scorify() {
 }
 
 function lose() {
-  //uncover all the mines
+  //uncover all the mines and add dark overlay.
+  finder("overlay").style.display = "block";
+  finder("lose").style.display = "block";
+
+  $(".closed").each(function() {
+		position = $(this).attr('id');
+		pos = position.split(",");
+		pos[0] = Math.floor(pos[0]);
+		pos[1] = Math.floor(pos[1]);
+
+		if(allSpaces[pos[0]][pos[1]]) {
+			$(this).addClass("mine");
+		}
+	});
+
+
   //stop the timer
   //play bomb sound
 }
 
 function win() {
+	//uncover all the mines and add dark overlay
+	finder("overlay").style.display = "block";
+
+  $(".closed").each(function() {
+		position = $(this).attr('id');
+		pos = position.split(",");
+		pos[0] = Math.floor(pos[0]);
+		pos[1] = Math.floor(pos[1]);
+
+		if(allSpaces[pos[0]][pos[1]]) {
+			$(this).addClass("mine");
+		}
+	});
+
   //stop the timer
   //play win sound
   scorify();
 }
-
 
 function custom() {
   row = parseInt(prompt("Rows:", "Minimum of 5"));
