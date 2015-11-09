@@ -9,7 +9,11 @@ class User < ActiveRecord::Base
 
   def win_perc
     if wins && losses
+      if losses == 0
+        0
+      else
       (self.wins/self.losses)*100
+      end
     end
   end
 end

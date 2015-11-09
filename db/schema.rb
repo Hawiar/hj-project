@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026235036) do
+ActiveRecord::Schema.define(version: 20151109202557) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -61,10 +61,10 @@ ActiveRecord::Schema.define(version: 20151026235036) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.integer  "high_score"
-    t.integer  "points"
-    t.integer  "wins"
-    t.integer  "losses"
+    t.integer  "high_score",             default: 0
+    t.integer  "points",                 default: 0
+    t.integer  "wins",                   default: 0
+    t.integer  "losses",                 default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

@@ -12,12 +12,12 @@ var loser = 0;
 var hintsUsed = 0;
 var tSwift = [];
 var startTime, curTime, timerID;
-var time;
+var time; 
 
 var player = {
   points: score,
   wins: winner,
-  losses: loser
+  losses: loser, 
 }
 
 // detects when mouse is right-clicked
@@ -300,7 +300,7 @@ function populate(bombs) { //setup bombs across the board
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			// shows all mines, useful for debugging.
-			 $(this).addClass("mine");
+			// $(this).addClass("mine");
 		}
 	});
 
@@ -324,6 +324,7 @@ function scorify() {
     }
     var penalty = (hintsUsed*100);
     score = score - penalty;
+    //add timer to score
   }
 }
 
@@ -345,9 +346,10 @@ function lose() {
 	});
 
 	stopTimer();
-  scorify();
-  loser += 1;
-  $.post('/stats', player);
+
+
+  //stop the timer
+  //play bomb sound
 }
 
 function win() {
@@ -367,10 +369,10 @@ function win() {
 		}
 	});
 
-  stopTimer();
+  //stop the timer
+  //play win sound
   scorify();
-  winner += 1;
-  $.post('/stats', player);
+  stopTimer();
 }
 
 function custom() {

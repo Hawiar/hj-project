@@ -19,6 +19,8 @@ Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
 
+
+  post '/stats' => 'game#update_stats', as: "stats"
   get 'welcome/index' => 'welcome#index', as: "unauth"
   get 'dashboard/leaderboard'
   get 'game/index' => 'game#index', as: "game"

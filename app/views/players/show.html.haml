@@ -20,7 +20,7 @@
     %table.table
       %tr
         %th Win Percentage
-        %td= user.win_perc
+        %td= number_to_percentage(user.win_perc, precision: 1)
       %tr
         %th Wins
         %td= user.wins
