@@ -16,3 +16,4 @@
 //= require_tree .
 //= require game
 //= require turbolinks
+//= require foundation.min
