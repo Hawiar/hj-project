@@ -1,4 +1,4 @@
-= link_to "Play Game", game_path, :class => "button"
+= link_to "Play Game", game_path, :class => "button", :onclick => "create(10,16,40)"
 .row
   .col-sm-4
     = render partial:  "dashboard/leaderboard", locals: {users: @users}

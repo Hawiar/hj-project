@@ -49,7 +49,6 @@ document.oncontextmenu = function() {
 
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
-	debug("create got called!");
 	clearInterval(timerID);
 	finder("time").innerHTML = "0";
 	clears();
@@ -282,7 +281,6 @@ function hint() {
   highlight = allPossible[rando];
 
   document.getElementById(highlight).className = "hint closed";
-  debug(highlight);
 
 
 }
@@ -328,7 +326,6 @@ function scorify() {
 }
 
 function lose() {
-	debug("lose got called!");
   //uncover all the mines and add dark overlay.
   finder("overlay").style.display = "block";
   finder("lose").style.display = "block";
@@ -352,7 +349,6 @@ function lose() {
 
 function win() {
 	//uncover all the mines and add dark overlay
-	debug("win got called!");
 	finder("overlay").style.display = "block";
 	finder("lose").style.display = "block";
 
@@ -403,11 +399,9 @@ function finder(string) {
 function startTimer() {
 	startTime = new Date();
 	timerID = setInterval(updateTimer, 10);
-	debug("start got called!");
 }
 
 function updateTimer() {
-	debug("update got called!");
 	curTime = new Date();
 	time = curTime.getTime() - startTime.getTime();
 	var time2 = Math.round(time / 10);
@@ -415,13 +409,11 @@ function updateTimer() {
 }
 
 function stopTimer() {
-	debug("stop got called!");
 	clearInterval(timerID);
 	updateTimer();
 }
 
 function trim(nDigits, number) {
-	debug("trim got called!");
  var power = Math.pow(10, nDigits);
  var trimmed = "" + Math.round(number * power);
  while (trimmed.length < nDigits + 1) {
