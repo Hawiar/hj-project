@@ -6,8 +6,6 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= favicon_link_tag 'logo' %> 
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag 'game' %>
-  <%= javascript_include_tag 'game' %>
 </head>
 <body onload="starting()">
 	<nav class="top-bar" data-topbar role="navigation">
@@ -21,20 +19,17 @@
 
 	  <section class="top-bar-section">
 	    <!-- Right Nav Section -->
-	    <% if user_signed_in? %>
 	    <ul class="right">
-		    <li class="has-dropdown">
-	        <a href="#">Hi, <%= current_user.username %></a>
-	          <ul class="dropdown">
-              <li><a href="Google.com" > Google</a></li>
-	            <li><%= link_to 'Stats', player_path(id: current_user.id) , :class => 'navbar-link'%></li>
-						  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'%></li>
-						  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
-	          </ul>
-	      </li>
-	    </ul>
-			<% end %>
-			<li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+ 				<% if user_signed_in? %>
+	 				<li><%= link_to 'Stats', player_path(id: current_user.id), :class => 'navbar-link'%></li>
+ 				  <li><%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link'%></li>
+ 				  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+ 				<% else %>
+ 				 <li><%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link' %></li> 
+ 				  <li><%= link_to "Login", new_user_session_path, :class => 'navbar-link' %></li> 
+ 				  <li><%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %></li>
+ 				<% end %>
+ 	    </ul>
 	  </section>
 	</nav>
 

@@ -14,10 +14,19 @@
 	<span class="button" onclick="hint()"> Hint</span>
 
 <div id="overlay" class="overlay">
-	<div id="win" class="panel"></div>
+	<div id="win" class="panel">
+		<h1>You win, good job!</h1>
+	</div>
+
 	<div id="lose" class="panel">
 		<h1>Sorry, you lost!</h1>
+
+		<span class="button" onclick="create(10,16,40, 'medium')">Play Again</span>
+		<span class="button"><a href="/">Home</a></span>
 	</div>
+
 	<td id="bigtable"><span id="board">&nbsp;</span></td>
 </div>
 </tr></table>
+
+<div id='time'>0</div>
