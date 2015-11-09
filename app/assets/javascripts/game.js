@@ -9,9 +9,7 @@ var allSpaces = []; //full game board
 var score = 0;
 var hintsUsed = 0;
 var tSwift = [];
-var startTime;
-var curTime;
-var timerID;
+var startTime, curTime, timerID;
 var time; 
 
 // detects when mouse is right-clicked
@@ -43,6 +41,9 @@ document.oncontextmenu = function() {
 
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
+	debug("create got called!");
+	clearInterval(timerID);
+	finder("time").innerHTML = "0";
 	clears();
 	this.row = rows;
 	this.columns = columns;
@@ -80,6 +81,7 @@ function clears() {
 	bombsTotal = 0;
   score = 0;
   hintsUsed = 0;
+  finder("overlay").style.display = "none";
 }
 
 
@@ -95,14 +97,14 @@ function clickedOn(position) {
 	}
 
 	//if the spot is a mine you lose.
-	else if (allSpaces[pos[0]][pos[1]]) {
+	else if (allSpaces[pos[0]][pos[1]] && finder(pos).innerHTML != "F" ) {
 		//window.alert("you lose!!!");
     lose();
 	}
 
 	//if it's not a mine or the first click, open the square
 	else {
-		clickedSquare = document.getElementById(pos);
+		clickedSquare = finder(pos);
 
 		if(clickedSquare.className == "closed flag") {
 			return;
@@ -317,6 +319,7 @@ function scorify() {
 }
 
 function lose() {
+	debug("lose got called!");
   //uncover all the mines and add dark overlay.
   finder("overlay").style.display = "block";
   finder("lose").style.display = "block";
@@ -332,6 +335,8 @@ function lose() {
 		}
 	});
 
+	stopTimer();
+
 
   //stop the timer
   //play bomb sound
@@ -339,6 +344,7 @@ function lose() {
 
 function win() {
 	//uncover all the mines and add dark overlay
+	debug("win got called!");
 	finder("overlay").style.display = "block";
 	finder("lose").style.display = "block";
 
@@ -356,6 +362,7 @@ function win() {
   //stop the timer
   //play win sound
   scorify();
+  stopTimer();
 }
 
 function custom() {
@@ -383,24 +390,30 @@ function finder(string) {
  return document.getElementById(string);
 }
 
+
+// timer functions
 function startTimer() {
- startTime = new Date();
- timerID = setInterval(updateTimer, 10);
+	startTime = new Date();
+	timerID = setInterval(updateTimer, 10);
+	debug("start got called!");
 }
 
 function updateTimer() {
- curTime = new Date();
- time = curTime.getTime() - startTime.getTime();
- var time2 = Math.round(time / 10);
- $('time').innerHTML = trim(2, (time2 / 100));
+	debug("update got called!");
+	curTime = new Date();
+	time = curTime.getTime() - startTime.getTime();
+	var time2 = Math.round(time / 10);
+	finder("time").innerHTML = trim(2, (time2 / 100));
 }
 
 function stopTimer() {
- clearInterval(timerID);
- updateTimer();
+	debug("stop got called!");
+	clearInterval(timerID);
+	updateTimer();
 }
 
 function trim(nDigits, number) {
+	debug("trim got called!");
  var power = Math.pow(10, nDigits);
  var trimmed = "" + Math.round(number * power);
  while (trimmed.length < nDigits + 1) {
@@ -409,4 +422,4 @@ function trim(nDigits, number) {
  var len = trimmed.length;
  return trimmed.substr(0,len - nDigits) + "." + trimmed.substr(len - nDigits, nDigits);
 }
-
+ 
