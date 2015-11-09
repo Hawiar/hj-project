@@ -8,7 +8,6 @@ var softCells; //cells that don't have a bomb
 var allSpaces = []; //full game board
 var score = 0;
 var winner = 0;
-var loser = 0;
 var hintsUsed = 0;
 var tSwift = [];
 var startTime, curTime, timerID;
@@ -17,7 +16,6 @@ var time;
 var player = {
   points: score,
   wins: winner,
-  losses: loser
 }
 
 // detects when mouse is right-clicked
@@ -119,9 +117,14 @@ function clickedOn(position) {
 			return;
 		}
 
+		if (clickedSquare.className != "open") {
+			softCells--;
+		}
+
 		clickedSquare.className = "open";
 		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
-	  softCells--;
+
+	  debug(softCells);
 
 	  if (softCells == 0) {
 	    win();
@@ -204,6 +207,12 @@ function blankOpen() {
 						square.className = "open";
 						square.innerHTML = checkMines(position[0],position[1]);
 						softCells--;
+
+						if(softCells == 0) {
+							win();
+						}
+
+						debug("softcells: " + softCells);
 
 						if (checkMines(position[0],position[1]) == "") {
 							tSwift.push([position[0],position[1]]);
@@ -321,7 +330,12 @@ function scorify() {
         break;
     }
     var penalty = (hintsUsed*100);
+    var time_points = 999 - finder("time").innerHTML;
     score = score - penalty;
+
+    if (time_points > 0) {
+    	score = score + time_points;
+    }
   }
 }
 
@@ -342,15 +356,14 @@ function lose() {
 	});
 
 	stopTimer();
-  scorify();
-  loser += 1;
+  winner = 0;
   $.post('/stats', player);
 }
 
 function win() {
 	//uncover all the mines and add dark overlay
 	finder("overlay").style.display = "block";
-	finder("lose").style.display = "block";
+	finder("win").style.display = "block";
 
   $(".closed").each(function() {
 		position = $(this).attr('id');
@@ -365,7 +378,9 @@ function win() {
 
   stopTimer();
   scorify();
-  winner += 1;
+  player.wins = 1;
+  player.points = score;
+  debug("winner: " + winner)
   $.post('/stats', player);
 }
 
@@ -405,7 +420,13 @@ function updateTimer() {
 	curTime = new Date();
 	time = curTime.getTime() - startTime.getTime();
 	var time2 = Math.round(time / 10);
-	finder("time").innerHTML = trim(2, (time2 / 100));
+
+	if (trim(2, (time2 / 100)) < 1000) {
+		finder("time").innerHTML = trim(2, (time2 / 100));
+	}
+	else {
+		finder("time").innerHTML = 999;
+	}
 }
 
 function stopTimer() {

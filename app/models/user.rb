@@ -8,12 +8,12 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :username, :case_sensitive => false
 
   def win_perc
-    if wins && losses
-      if losses == 0
-        0
-      else
-      (self.wins/self.losses)*100
-      end
+    if wins == 0 && losses == 0
+      0
+    elsif losses == 0
+      100
+    else
+      (wins.to_f/(losses.to_f + wins.to_f))*100
     end
   end
 end
