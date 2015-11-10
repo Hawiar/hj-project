@@ -18,33 +18,6 @@ var player = {
   wins: winner,
 }
 
-// detects when mouse is right-clicked
-function mouseDown(e, id) {
-  flagged = document.getElementById(id);
-
-  e = e || window.event;
-
-  if (e.which == 3) {
-  	if(flagged.className == "closed flag") {
-  		flagged.classList.remove("flag");
-  		flagged.classList.add("question");
-  		flagged.innerHTML = "?";
-  	}
-  	else if(flagged.className == "closed question") {
-  		flagged.classList.remove("question");
-  		flagged.innerHTML = "";
-  	}
-  	else {
-	  	flagged.classList.add("flag");
-	  	flagged.innerHTML = "F";
-	  }
-  }
-}
-
-document.oncontextmenu = function() {
-    return false;
-}
-
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
 	clearInterval(timerID);
@@ -268,28 +241,30 @@ function checkMines(x,y) {
 }
 
 function hint() {
-  hintsUsed++;
-  
-  allPossible = [];
+	if (numOfClicks > 0) {
+	  hintsUsed++;
+	  
+	  allPossible = [];
 
-  $(".closed").each(function() {
-  	position = $(this).attr('id');
-  	pos = position.split(",");
-		pos[0] = Math.floor(pos[0]);
-		pos[1] = Math.floor(pos[1]);
+	  $(".closed").each(function() {
+	  	position = $(this).attr('id');
+	  	pos = position.split(",");
+			pos[0] = Math.floor(pos[0]);
+			pos[1] = Math.floor(pos[1]);
 
-		if (allSpaces[pos[0]][pos[1]] == false) {
-			allPossible.push(pos);
-		}
+			if (allSpaces[pos[0]][pos[1]] == false) {
+				allPossible.push(pos);
+			}
 
-  });
+	  });
 
-  rando = allPossible.length;
-  rando = Math.floor((Math.random() * rando));
+	  rando = allPossible.length;
+	  rando = Math.floor((Math.random() * rando));
 
-  highlight = allPossible[rando];
+	  highlight = allPossible[rando];
 
-  document.getElementById(highlight).className = "hint closed";
+	  document.getElementById(highlight).className = "hint closed";
+	}
 
 
 }
@@ -329,8 +304,10 @@ function scorify() {
         score += 2000;
         break;
     }
+
     var penalty = (hintsUsed*100);
     var time_points = 999 - finder("time").innerHTML;
+
     score = score - penalty;
 
     if (time_points > 0) {
@@ -385,11 +362,19 @@ function win() {
 }
 
 function custom() {
-  row = parseInt(prompt("Rows:", "Minimum of 5"));
-  columns = parseInt(prompt("Columns:", "Minimum of 5"));
-  bombs = (row*columns)/5;
-  difficulty = "custom"
-  create(row, columns, bombs, difficulty);
+  //uncover all the mines and add dark overlay
+	finder("overlay").style.display = "block";
+	finder("custom").style.display = "block";
+}
+
+function createCustom() {
+	custWidth = finder("width").value;
+	debug(custWidth);
+	custHeight = finder("height").value;
+	debug(custHeight);
+	custMines = (custWidth * custHeight) / 5;
+	debug(custMines);
+	create(custHeight, custWidth, custMines , 'custom');
 }
 
 function bombSound() { //html5 audio element
@@ -421,8 +406,8 @@ function updateTimer() {
 	time = curTime.getTime() - startTime.getTime();
 	var time2 = Math.round(time / 10);
 
-	if (trim(2, (time2 / 100)) < 1000) {
-		finder("time").innerHTML = trim(2, (time2 / 100));
+	if (roundNum(2, (time2 / 100)) < 1000) {
+		finder("time").innerHTML = roundNum(2, (time2 / 100));
 	}
 	else {
 		finder("time").innerHTML = 999;
@@ -434,13 +419,43 @@ function stopTimer() {
 	updateTimer();
 }
 
-function trim(nDigits, number) {
- var power = Math.pow(10, nDigits);
- var trimmed = "" + Math.round(number * power);
- while (trimmed.length < nDigits + 1) {
-  trimmed = "0" + trimmed;
+function roundNum(digits, number) {
+ var power = Math.pow(10, digits);
+ var rounded = "" + Math.round(number * power);
+ while (rounded.length < digits + 1) {
+  rounded = "0" + rounded;
  }
- var len = trimmed.length;
- return trimmed.substr(0,len - nDigits) + "." + trimmed.substr(len - nDigits, nDigits);
+ var len = rounded.length;
+ return rounded.substr(0,len - digits) + "." + rounded.substr(len - digits, digits);
 }
- 
+
+// detects when mouse is right-clicked
+function mouseDown(e, id) {
+  flagged = document.getElementById(id);
+
+  e = e || window.event;
+
+  if (e.which == 3) {
+  	if(flagged.className == "closed flag") {
+  		flagged.classList.remove("flag");
+  		flagged.classList.add("question");
+  		flagged.innerHTML = "?";
+  	}
+  	else if(flagged.className == "closed question") {
+  		flagged.classList.remove("question");
+  		flagged.innerHTML = "";
+  	}
+  	else {
+	  	flagged.classList.add("flag");
+	  	flagged.innerHTML = "F";
+	  }
+  }
+}
+
+document.oncontextmenu = function() {
+    return false;
+}
+
+$('#form').submit(function () {
+	return false;
+}); 
