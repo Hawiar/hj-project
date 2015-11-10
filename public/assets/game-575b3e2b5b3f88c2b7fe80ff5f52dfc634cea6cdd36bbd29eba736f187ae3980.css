@@ -1,0 +1,83 @@
+body {
+  text-align: center; }
+
+.closed {
+  font-size: 11px;
+  background-color: #00FFFF;
+  width: 17px;
+  height: 17px;
+  margin: 0.5px; }
+  .closed.mardi {
+    background-color: #00A86B; }
+  .closed.malibu {
+    background-color: #66B7E1; }
+  .closed.mandang {
+    background-color: #00CCCC; }
+  .closed.hint {
+    background-color: yellow; }
+
+.open {
+  font-size: 11px;
+  background-color: #061994;
+  width: 17px;
+  height: 17px;
+  margin: 0.5px;
+  color: white; }
+  .open.mardi {
+    background-color: #352235; }
+  .open.malibu {
+    background-color: #9400D3; }
+  .open.mandang {
+    background-color: #B7E3A8; }
+
+.mine {
+  background-color: red;
+  width: 17px;
+  height: 17px;
+  margin: 0.5px; }
+
+td {
+  padding: 0 !important; }
+
+table {
+  width: initial;
+  margin: 0 auto;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none; }
+
+.overlay {
+  display: none;
+  background-color: rgba(1, 1, 1, 0.5);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0; }
+
+.panel {
+  text-align: center;
+  display: none;
+  width: 300px;
+  height: 330;
+  margin: 15% auto; }
+
+#skin {
+  width: 100%;
+  height: 100%; }
+
+a:hover {
+  background: none; }
+
+.orbit-container {
+  padding: 0 !important;
+  height: 100px; }
+  .orbit-container .orbit-slide-number {
+    display: none; }
+  .orbit-container .orbit-timer {
+    display: none; }
+  .orbit-container .orbit-bullets {
+    display: none; }
+
+/*# sourceMappingURL=game.css.map */
