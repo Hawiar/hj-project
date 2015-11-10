@@ -367,6 +367,12 @@ function custom() {
 	finder("custom").style.display = "block";
 }
 
+function skins() {
+  //uncover all the mines and add dark overlay
+	finder("overlay").style.display = "block";
+	finder("skins").style.display = "block";
+}
+
 function createCustom() {
 	custWidth = finder("width").value;
 	debug(custWidth);
