@@ -1,8 +1,6 @@
-<%= javascript_include_tag 'jquery' %>
 <%= stylesheet_link_tag 'game' %>
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag 'timer.js' %>
-<%= javascript_include_tag 'foundation.orbit.js' %>
 
 	<audio id="bomb">
 	  <source src="bomb.wav" type="audio/wav">
@@ -43,23 +41,14 @@
 		<div id="skins" class="panel">
 			<h1>Choose your skin</h1>
 			<ul class="example-orbit" data-orbit>
-			  <li>
-			    <img src="../assets/img/examples/satelite-orbit.jpg" alt="slide 1" />
-			    <div class="orbit-caption">
-			      Caption One.
-			    </div>
+			  <li class="active" onclick="setskin('mardi')">
+			   <span id="skin"><%= image_tag("mardi_gras_jade") %></span>
 			  </li>
-			  <li class="active">
-			    <img src="../assets/img/examples/andromeda-orbit.jpg" alt="slide 2" />
-			    <div class="orbit-caption">
-			      Caption Two.
-			    </div>
+			  <li onclick="setskin('mandang')">
+			    <span id="skin"><%= image_tag("mandang_robins_egg") %></span>
 			  </li>
-			  <li>
-			    <img src="../assets/img/examples/launch-orbit.jpg" alt="slide 3" />
-			    <div class="orbit-caption">
-			      Caption Three.
-			    </div>
+			  <li onclick="setskin('malibu')">
+			    <span id="skin"><%= image_tag("malibu_dark_violet") %></span>
 			  </li>
 			</ul>
 		</div>

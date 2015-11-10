@@ -12,6 +12,7 @@ var hintsUsed = 0;
 var tSwift = [];
 var startTime, curTime, timerID;
 var time;
+var skin = "yuck";
 
 var player = {
   points: score,
@@ -39,7 +40,7 @@ function create(rows, columns, bombs, difficulty) {
 	for (var i = 0; i < row; i++) {
 	  board += "<tr>";
 	  for (var j = 0; j < columns; j++) {
-	  	board += "<td><div class='closed' id='"+j+","+i+"' onclick='clickedOn(this.id)' onmousedown='mouseDown(event, this.id);'></div><\/td>";
+	  	board += "<td><div class='closed "+skin+"' id='"+j+","+i+"' onclick='clickedOn(this.id)' onmousedown='mouseDown(event, this.id);'></div><\/td>";
 	  	allSpaces[j][i] = false;
 	  }
 	  board += "<\/tr>";
@@ -62,6 +63,10 @@ function clears() {
   loser = 0;
   hintsUsed = 0;
   finder("overlay").style.display = "none";
+  finder("win").style.display = "none";
+  finder("lose").style.display = "none";
+  finder("custom").style.display = "none";
+  finder("skins").style.display = "none";
 }
 
 
@@ -86,15 +91,15 @@ function clickedOn(position) {
 	else {
 		clickedSquare = finder(pos);
 
-		if(clickedSquare.className == "closed flag") {
+		if(clickedSquare.className == "closed " + skin + " flag") {
 			return;
 		}
 
-		if (clickedSquare.className != "open") {
+		if (clickedSquare.className != "open " + skin) {
 			softCells--;
 		}
 
-		clickedSquare.className = "open";
+		clickedSquare.className = "open " + skin;
 		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
 
 	  debug(softCells);
@@ -126,7 +131,7 @@ function aroundTown(position) {
 
 			if(document.getElementById(posit)) {
 
-				document.getElementById(posit).className = "open";
+				document.getElementById(posit).className = "open " + skin;
 				allPos += posit;
         allPos += ",";
         softCells--;
@@ -177,7 +182,7 @@ function blankOpen() {
 					square = document.getElementById(position);
 
 					if (square.classList.contains("closed") && allSpaces[position[0]][position[1]] == false) {
-						square.className = "open";
+						square.className = "open " + skin;
 						square.innerHTML = checkMines(position[0],position[1]);
 						softCells--;
 
@@ -203,7 +208,7 @@ function blankOpen() {
 }
 
 function starting() { //Default board layout
-  create(9, 9, 10, 'easy');
+  create(9, 9, 16, 'easy');
 }
 
 // check around position for mines
@@ -263,7 +268,7 @@ function hint() {
 
 	  highlight = allPossible[rando];
 
-	  document.getElementById(highlight).className = "hint closed";
+	  document.getElementById(highlight).className = "hint closed " + skin;
 	}
 
 
@@ -282,7 +287,7 @@ function populate(bombs) { //setup bombs across the board
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			// shows all mines, useful for debugging.
-			 $(this).addClass("mine");
+			 // $(this).addClass("mine");
 		}
 	});
 
@@ -373,6 +378,13 @@ function skins() {
 	finder("skins").style.display = "block";
 }
 
+function setskin(pattern) {
+	skin = pattern;
+	starting();
+	finder("skins").style.display = "none";
+
+}
+
 function createCustom() {
 	custWidth = finder("width").value;
 	debug(custWidth);
@@ -442,12 +454,12 @@ function mouseDown(e, id) {
   e = e || window.event;
 
   if (e.which == 3) {
-  	if(flagged.className == "closed flag") {
+  	if(flagged.className == "closed " + skin + " flag") {
   		flagged.classList.remove("flag");
   		flagged.classList.add("question");
   		flagged.innerHTML = "?";
   	}
-  	else if(flagged.className == "closed question") {
+  	else if(flagged.className == "closed " + skin + " question") {
   		flagged.classList.remove("question");
   		flagged.innerHTML = "";
   	}
