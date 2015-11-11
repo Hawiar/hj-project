@@ -12,7 +12,7 @@ var hintsUsed = 0;
 var tSwift = [];
 var startTime, curTime, timerID;
 var time;
-var skin = "yuck";
+var skin;
 
 var player = {
   points: score,

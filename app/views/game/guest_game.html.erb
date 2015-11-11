@@ -1,15 +1,40 @@
-<div class=".overlay">
-<audio id="bomb">
-  <source src="bomb.wav" type="audio/wav">
-</audio>
+<%= stylesheet_link_tag 'game' %>
+<%= javascript_include_tag 'game' %>
+<%= javascript_include_tag 'timer.js' %>
+<%= audio_tag("bomb", :id => "bomb") %>
+<%= audio_tag("clapping", :id => "clapping") %>
+<%= audio_tag("evil_laugh", :id => "evil_laugh") %>
+<%= audio_tag("kid_laugh", :id => "kid_laugh") %>
 
-<table><tr>
- <span class="button" onclick="create(9,9,10, 'easy')"> Easy</span>
- <span class="button" onclick="create(10,16,40, 'medium')"> Medium</span>
- <span class="button" onclick="create(30,30,99, 'hard')"> Hard</span>
- <span class="button" onclick="custom()"> Custom</span>
- <span class="button" onclick="hint()"> Hint</span>
- <span class="button" onclick="bombSound()"> Guest </span>
- <td id="bigtable"><span id="board">&nbsp;</span></td>
- </tr></table>
-</div>
+	<table><tr>
+		<span class="button" onclick="create(9,9,16, 'easy')"> Easy</span>
+		<span class="button" onclick="create(16, 16, 50, 'medium')"> Medium</span>
+		<span class="button" onclick="create(16, 30, 99, 'hard')"> Hard</span>
+
+	<div id="overlay" class="overlay">
+		<div id="win" class="panel">
+			<h1>You Won!</h1>
+			<h4> Track your progress/Unlock more features by logging in! </h2>
+			<span class="button" onclick="create(16,16,50, 'medium')">Play Again</span>
+			<span class="button"><a href="/">Home</a></span>
+		</div>
+
+		<div id="lose" class="panel">
+			<h1>Sorry, you lost!</h1>
+			<h4> Track your progress/Unlock more features by logging in! </h2>
+			<span class="button" onclick="create(16,16,50, 'medium')">Play Again</span>
+			<span class="button"><a href="/">Home</a></span>
+		</div>
+
+		<div id="custom" class="panel">
+		</div>
+
+		<div id="skins" class="panel">
+		</div>
+
+		<td id="bigtable"><span id="board">&nbsp;</span></td>
+	</div>
+	</tr></table>
+
+
+	<div>Timer: <span id='time'>0</span></div>
