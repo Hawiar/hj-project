@@ -1,10 +1,10 @@
 <%= stylesheet_link_tag 'game' %>
 <%= javascript_include_tag 'game' %>
 <%= javascript_include_tag 'timer.js' %>
-
-	<audio id="bomb">
-	  <source src="bomb.wav" type="audio/wav">
-	</audio>
+<%= audio_tag("bomb", :id => "bomb") %>
+<%= audio_tag("clapping", :id => "clapping") %>
+<%= audio_tag("evil_laugh", :id => "evil_laugh") %>
+<%= audio_tag("kid_laugh", :id => "kid_laugh") %>
 
 	<table><tr>
 		<span class="button" onclick="create(9,9,16, 'easy')"> Easy</span>
@@ -17,6 +17,7 @@
 	<div id="overlay" class="overlay">
 		<div id="win" class="panel">
 			<h1>You win, good job!</h1>
+			<h2>Your score: <span id="current_score"></span></h2>
 			<span class="button" onclick="create(16,16,99, 'medium')">Play Again</span>
 			<span class="button"><a href="/">Home</a></span>
 		</div>
@@ -30,9 +31,9 @@
 		<div id="custom" class="panel">
 			<h1>Choose board size</h1>
 			<form id="form" action="javascript:void(0);">
-				<label>Height</label>
+				<label>Height (8-24)</label>
 				<input id="height" type="number" min="8" max="24" required>
-				<label>Width</label>
+				<label>Width (8-30)</label>
 				<input id="width" type="number" min="8" max="30" required>
 				<input class="submit" type="submit" value="Submit" onclick="createCustom()">
 			</form>
@@ -41,14 +42,14 @@
 		<div id="skins" class="panel">
 			<h1>Choose your skin</h1>
 			<ul class="example-orbit" data-orbit>
-			  <li class="active" onclick="setskin('mardi')">
-			   <span id="skin"><%= image_tag("mardi_gras_jade") %></span>
+			  <li onclick="setskin('skin1')">
+			    <span id="skin"><%= image_tag("skin1") %></span>
 			  </li>
-			  <li onclick="setskin('mandang')">
-			    <span id="skin"><%= image_tag("mandang_robins_egg") %></span>
+			  <li onclick="setskin('skin2')">
+			    <span id="skin"><%= image_tag("skin2") %></span>
 			  </li>
-			  <li onclick="setskin('malibu')">
-			    <span id="skin"><%= image_tag("malibu_dark_violet") %></span>
+			  <li onclick="setskin('skin3')">
+			    <span id="skin"><%= image_tag("skin3") %></span>
 			  </li>
 			</ul>
 		</div>

@@ -7,12 +7,17 @@ body {
   width: 17px;
   height: 17px;
   margin: 0.5px; }
-  .closed.mardi {
-    background-color: #00A86B; }
-  .closed.malibu {
-    background-color: #66B7E1; }
-  .closed.mandang {
-    background-color: #00CCCC; }
+  .closed.skin1 {
+    background-color: #352235; }
+  .closed.skin2 {
+    background-color: #24252B; }
+  .closed.skin3 {
+    background-color: #4B433B; }
+  .closed.mine {
+    background-color: red;
+    width: 17px;
+    height: 17px;
+    margin: 0.5px; }
   .closed.hint {
     background-color: yellow; }
 
@@ -23,18 +28,17 @@ body {
   height: 17px;
   margin: 0.5px;
   color: white; }
-  .open.mardi {
-    background-color: #352235; }
-  .open.malibu {
-    background-color: #9400D3; }
-  .open.mandang {
-    background-color: #B7E3A8; }
-
-.mine {
-  background-color: red;
-  width: 17px;
-  height: 17px;
-  margin: 0.5px; }
+  .open.skin1 {
+    background-color: #00A86B; }
+  .open.skin2 {
+    background-color: #A96A50; }
+  .open.skin3 {
+    background-color: #A98D36; }
+  .open.mine {
+    background-color: red;
+    width: 17px;
+    height: 17px;
+    margin: 0.5px; }
 
 td {
   padding: 0 !important; }

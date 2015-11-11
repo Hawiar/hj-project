@@ -287,7 +287,7 @@ function populate(bombs) { //setup bombs across the board
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			// shows all mines, useful for debugging.
-			 // $(this).addClass("mine");
+			 $(this).addClass("mine");
 		}
 	});
 
@@ -311,13 +311,15 @@ function scorify() {
     }
 
     var penalty = (hintsUsed*100);
-    var time_points = 999 - finder("time").innerHTML;
+    var time_points = Math.floor(999 - finder("time").innerHTML);
 
     score = score - penalty;
 
     if (time_points > 0) {
     	score = score + time_points;
     }
+
+    finder("current_score").innerHTML = score;
   }
 }
 
@@ -338,6 +340,7 @@ function lose() {
 	});
 
 	stopTimer();
+	loseSound();
   winner = 0;
   $.post('/stats', player);
 }
@@ -360,6 +363,7 @@ function win() {
 
   stopTimer();
   scorify();
+  winSound();
   player.wins = 1;
   player.points = score;
   debug("winner: " + winner)
@@ -387,23 +391,37 @@ function setskin(pattern) {
 
 function createCustom() {
 	custWidth = finder("width").value;
-	debug(custWidth);
 	custHeight = finder("height").value;
-	debug(custHeight);
 	custMines = (custWidth * custHeight) / 5;
-	debug(custMines);
-	create(custHeight, custWidth, custMines , 'custom');
+	if (7 < custWidth && custWidth < 31 && 7 < custHeight && custHeight < 25 ) {
+		create(custHeight, custWidth, custMines , 'custom');
+	}
 }
 
-function bombSound() { //html5 audio element
-  var audio = document.getElementById('bomb');
+function loseSound() { //html5 audio element
+	switch(difficulty) {
+      case 'easy':
+        var audio = document.getElementById('bomb');
+        break;
+      case 'medium':
+        var audio = document.getElementById('evil_laugh');
+        break;
+      case 'hard':
+        var audio = document.getElementById('kid_laugh');
+        break;
+      case 'custom':
+      	var audio = document.getElementById('bomb');
+      	break;
+    }
+
   audio.play();
 }
 
 function winSound() { //html5 audio element
-  var audio = document.getElementById('bomb');
+  var audio = document.getElementById('clapping');
   audio.play();
 }
+
 function debug(bug) {
 	console.log(bug);
 }

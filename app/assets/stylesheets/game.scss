@@ -7,19 +7,26 @@ body {
   font-size: 11px;
  	background-color: #00FFFF;
 
-  &.mardi {
-    background-color: #00A86B;
+  &.skin1 {
+    background-color: #352235;
   }
 
-  &.malibu {
-    background-color: #66B7E1;
+  &.skin2 {
+    background-color: #24252B;
   }
 
-  &.mandang {
-    background-color: #00CCCC;
+  &.skin3 {
+    background-color: #4B433B;
   }
 
-    &.hint {
+  &.mine {
+    background-color: red;
+    width: 17px;
+    height: 17px;
+    margin: 0.5px;
+  }
+
+  &.hint {
     background-color: yellow;
   }
 
@@ -36,25 +43,27 @@ body {
  	margin: 0.5px;
  	color: white;
 
-  &.mardi {
-    background-color: #352235;
+
+  &.skin1 {
+    background-color: #00A86B;
   }
 
-  &.malibu {
-    background-color: #9400D3;
+  &.skin2 {
+    background-color: #A96A50;
   }
 
-  &.mandang {
-    background-color: #B7E3A8;
+  &.skin3 {
+    background-color: #A98D36;
+  }
+
+  &.mine {
+    background-color: red;
+    width: 17px;
+    height: 17px;
+    margin: 0.5px;
   }
 }
 
-.mine {
-	background-color: red;
- 	width: 17px;
- 	height: 17px;
- 	margin: 0.5px;
-}
 
 td {
  	padding: 0 !important;
@@ -105,18 +114,6 @@ a {
     .orbit-slide-number {
       display: none;
     }
-
-    // .orbit-prev {
-    //   margin-top: 0;
-    //   height: 93%;
-    //   top: 0;
-    // }
-
-    // .orbit-next {
-    //   margin-top: 0;
-    //   height: 93%;
-    //   top: 0;
-    // }
 
     .orbit-timer {
       display: none;
