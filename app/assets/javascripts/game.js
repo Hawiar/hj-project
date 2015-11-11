@@ -287,7 +287,7 @@ function populate(bombs) { //setup bombs across the board
 			left--;
 			allSpaces[pos[0]][pos[1]] = true;
 			// shows all mines, useful for debugging.
-			 $(this).addClass("mine");
+			$(this).addClass("mine");
 		}
 	});
 
@@ -486,6 +486,11 @@ function mouseDown(e, id) {
 	  	flagged.innerHTML = "F";
 	  }
   }
+}
+
+function closingTime() {
+	finder("overlay").style.display = "none";
+	finder("skins").style.display = "none";
 }
 
 document.oncontextmenu = function() {

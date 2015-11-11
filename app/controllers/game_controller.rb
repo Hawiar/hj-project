@@ -2,6 +2,7 @@ class GameController < ApplicationController
   before_action :authenticate, only: [:index]
 
   def index
+    @user = User.find(current_user.id)
   end
 
   def guest_game
