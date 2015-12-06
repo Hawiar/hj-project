@@ -101,8 +101,6 @@ function clickedOn(position) {
 		clickedSquare.className = "open " + skin;
 		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
 
-	  debug(softCells);
-
 	  if (softCells == 0) {
 	    win();
 	  }
@@ -189,8 +187,6 @@ function blankOpen() {
 							win();
 						}
 
-						debug("softcells: " + softCells);
-
 						if (checkMines(position[0],position[1]) == "") {
 							tSwift.push([position[0],position[1]]);
 						}
@@ -206,8 +202,26 @@ function blankOpen() {
 	}
 }
 
-function starting() { //Default board layout
-  create(9, 9, 16, 'easy');
+function populate(bombs) { //setup bombs across the board
+	left = bombs;
+
+	$(".closed").each(function() {
+		position = $(this).attr('id');
+		pos = position.split(",");
+		pos[0] = Math.floor(pos[0]);
+		pos[1] = Math.floor(pos[1]);
+
+		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
+			left--;
+			allSpaces[pos[0]][pos[1]] = true;
+			// shows all mines, useful for debugging.
+			$(this).addClass("mine");
+		}
+	});
+
+	if(left > 0) {
+		populate(left);
+	}
 }
 
 // check around position for mines
@@ -273,6 +287,7 @@ function hint() {
 
 }
 
+<<<<<<< Updated upstream
 function populate(bombs) { //setup bombs across the board
 	left = bombs;
 
@@ -295,6 +310,8 @@ function populate(bombs) { //setup bombs across the board
 	}
 }
 
+=======
+>>>>>>> Stashed changes
 function scorify() {
   if (difficulty != "custom") {
     switch(difficulty) {
@@ -365,8 +382,12 @@ function win() {
   winSound();
   player.wins = 1;
   player.points = score;
-  debug("winner: " + winner)
   $.post('/stats', player);
+}
+
+// default board layout
+function starting() {
+  create(9, 9, 16, 'easy');
 }
 
 function custom() {
@@ -487,15 +508,18 @@ function mouseDown(e, id) {
   }
 }
 
+// closes the skins panel
 function closingTime() {
 	finder("overlay").style.display = "none";
 	finder("skins").style.display = "none";
 }
 
+// we dont want right-click to pull up the menu when you're playing the game
 document.oncontextmenu = function() {
     return false;
 }
 
+// form for custom doesn't actually submit anything, just need to get the values
 $('#form').submit(function () {
 	return false;
 }); 
