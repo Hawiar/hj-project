@@ -287,7 +287,6 @@ function hint() {
 
 }
 
-<<<<<<< Updated upstream
 function populate(bombs) { //setup bombs across the board
 	left = bombs;
 
@@ -310,8 +309,6 @@ function populate(bombs) { //setup bombs across the board
 	}
 }
 
-=======
->>>>>>> Stashed changes
 function scorify() {
   if (difficulty != "custom") {
     switch(difficulty) {
@@ -495,7 +492,7 @@ function mouseDown(e, id) {
   	if(flagged.className == "closed " + skin + " flag") {
   		flagged.classList.remove("flag");
   		flagged.classList.add("question");
-  		flagged.innerHTML = "?";
+  		// flagged.innerHTML = "?";
   	}
   	else if(flagged.className == "closed " + skin + " question") {
   		flagged.classList.remove("question");
@@ -503,7 +500,7 @@ function mouseDown(e, id) {
   	}
   	else {
 	  	flagged.classList.add("flag");
-	  	flagged.innerHTML = "F";
+	  	// flagged.innerHTML = "F";
 	  }
   }
 }

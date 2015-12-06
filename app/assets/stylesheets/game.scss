@@ -4,42 +4,53 @@ body {
 
 
 .closed {
-  font-size: 11px;
+  font-size: 12px;
  	background-color: #00FFFF;
-
+  width: 20px;
+  height: 20px;
+  margin: 0.5px;
+  
   &.skin1 {
     background-color: #352235;
+    color: white;
   }
 
   &.skin2 {
     background-color: #24252B;
+    color: white;
   }
 
   &.skin3 {
     background-color: #4B433B;
+    color: white;
   }
 
   &.mine {
     background-color: red;
-    width: 17px;
-    height: 17px;
-    margin: 0.5px;
   }
 
   &.hint {
     background-color: yellow;
   }
 
- 	width: 17px;
- 	height: 17px;
- 	margin: 0.5px;
- }
+  &.flag {
+    background-color: white;
+    background-image: url("/assets/flag-a0b9b8346965e7f769c3cb582e8bc520bff7bb2069e1c01a12ea696ebf6ba3e3.png");
+    background-size: 20px 20px;
+  }
+
+  &.question {
+    background-color: white;
+    background-image: url("/assets/question-80aa5e06f92192a9889ade8e210d4b31dd027b43fe046e3b36e9f86d9720410f.png");
+    background-size: 20px 20px;
+  }
+}
 
 .open {
-  font-size: 11px;
+  font-size: 12px;
 	background-color: #061994;
- 	width: 17px;
- 	height: 17px;
+ 	width: 20px;
+ 	height: 20px;
  	margin: 0.5px;
  	color: white;
 
@@ -58,9 +69,6 @@ body {
 
   &.mine {
     background-color: red;
-    width: 17px;
-    height: 17px;
-    margin: 0.5px;
   }
 }
 
