@@ -8,7 +8,7 @@ Rails.application.config.assets.precompile += %w( timer.js )
 Rails.application.config.assets.precompile += %w( jquery.js )
 Rails.application.config.assets.precompile += %w( vendor/modernizr.js )
 Rails.application.config.assets.precompile += %w( foundation.js )
-
+Rails.application.config.assets.precompile += %w( register.css )
 # Add additional assets to the asset load path
 # Rails.application.config.assets.paths << Emoji.images_path
 
