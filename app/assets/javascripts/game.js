@@ -18,12 +18,11 @@ var player = {
   wins: winner,
 }
 
-$(".closed").on("taphold",function(){
-  $(this).addClass("mine");
-});
-	
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
+	$(".closed").on("taphold",function(){
+  $(this).addClass("mine");
+});
 	clearInterval(timerID);
 	finder("time").innerHTML = "0";
 	clears();
@@ -71,7 +70,6 @@ function clears() {
   finder("custom").style.display = "none";
   finder("skins").style.display = "none";
 }
-
 
 //Whenever a spot is clicked call this function.
 function clickedOn(position) {
