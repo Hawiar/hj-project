@@ -18,6 +18,10 @@ var player = {
   wins: winner,
 }
 
+$(".closed").on("taphold",function(){
+  $(this).addClass("mine");
+});
+	
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
 	clearInterval(timerID);
@@ -199,28 +203,6 @@ function blankOpen() {
 			position[0] = position[0] - i;
 		}	
 			tSwift.splice(0,1);
-	}
-}
-
-function populate(bombs) { //setup bombs across the board
-	left = bombs;
-
-	$(".closed").each(function() {
-		position = $(this).attr('id');
-		pos = position.split(",");
-		pos[0] = Math.floor(pos[0]);
-		pos[1] = Math.floor(pos[1]);
-
-		if(Math.random() < 0.01 && left > 0 && allSpaces[pos[0]][pos[1]] == false) {
-			left--;
-			allSpaces[pos[0]][pos[1]] = true;
-			// shows all mines, useful for debugging.
-			$(this).addClass("mine");
-		}
-	});
-
-	if(left > 0) {
-		populate(left);
 	}
 }
 
