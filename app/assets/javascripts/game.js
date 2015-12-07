@@ -12,6 +12,7 @@ var tSwift = [];
 var startTime, curTime, timerID;
 var time;
 var skin;
+var is_flag = false;
 
 var player = {
   points: score,
@@ -20,9 +21,6 @@ var player = {
 
 //Creates the initial board
 function create(rows, columns, bombs, difficulty) {
-	$(".closed").on("taphold",function(){
-  $(this).addClass("mine");
-});
 	clearInterval(timerID);
 	finder("time").innerHTML = "0";
 	clears();
@@ -73,44 +71,74 @@ function clears() {
 
 //Whenever a spot is clicked call this function.
 function clickedOn(position) {
-	numOfClicks++;
-	//stores the position of the clicked spot in a array list [x,y].
-	p = position;
-	pos = p.split(",");
 
-	if (numOfClicks == 1) {
-		aroundTown(pos);
+	// used to tell if it's a click or a hold. If it's a hold dont
+	// count it as a left click, count it as a right click.
+	// used to account for mobile.
+	$(window).mousedown(function(e) {
+    clearTimeout(this.downTimer);
+    this.downTimer = setTimeout(function() {
+    		is_flag = true;
+
+        if(flagged.className == "closed " + skin + " flag") {
+		  		flagged.classList.remove("flag");
+		  		flagged.classList.add("question");
+		  	}
+		  	else if(flagged.className == "closed " + skin + " question") {
+		  		flagged.classList.remove("question");
+		  		flagged.innerHTML = "";
+		  	}
+		  	else {
+			  	flagged.classList.add("flag");
+			  } 
+    }, 1000);
+	}).mouseup(function(e) {
+    clearTimeout(this.downTimer);
+	});
+
+	// if is_flag is true that means it's a hold, not a click.
+	if (is_flag == false) {
+		numOfClicks++;
+		//stores the position of the clicked spot in a array list [x,y].
+		p = position;
+		pos = p.split(",");
+
+		if (numOfClicks == 1) {
+			aroundTown(pos);
+		}
+
+		//if the spot is a mine you lose.
+		else if (allSpaces[pos[0]][pos[1]] && finder(pos).innerHTML != "F" ) {
+	    lose();
+		}
+
+		//if it's not a mine or the first click, open the square
+		else {
+			clickedSquare = finder(pos);
+
+			if(clickedSquare.className == "closed " + skin + " flag") {
+				return;
+			}
+
+			if (clickedSquare.className != "open " + skin) {
+				softCells--;
+			}
+
+			clickedSquare.className = "open " + skin;
+			clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
+
+		  if (softCells == 0) {
+		    win();
+		  }
+
+		  if (checkMines(pos[0],pos[1]) == "") {
+		  	tSwift.push([pos[0],pos[1]]);
+		  	blankOpen();
+		  }
+		}
 	}
-
-	//if the spot is a mine you lose.
-	else if (allSpaces[pos[0]][pos[1]] && finder(pos).innerHTML != "F" ) {
-		//window.alert("you lose!!!");
-    lose();
-	}
-
-	//if it's not a mine or the first click, open the square
 	else {
-		clickedSquare = finder(pos);
-
-		if(clickedSquare.className == "closed " + skin + " flag") {
-			return;
-		}
-
-		if (clickedSquare.className != "open " + skin) {
-			softCells--;
-		}
-
-		clickedSquare.className = "open " + skin;
-		clickedSquare.innerHTML = checkMines(pos[0],pos[1]);
-
-	  if (softCells == 0) {
-	    win();
-	  }
-
-	  if (checkMines(pos[0],pos[1]) == "") {
-	  	tSwift.push([pos[0],pos[1]]);
-	  	blankOpen();
-	  }
+		is_flag = false;
 	}
 }
 
